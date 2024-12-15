@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Letter Frequencies</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js"></script>
+  <link rel="icon" type="image/png" href="favicon.png">
+</head>
+
+<body>
+  <main>
+    <div>
+        <label for="inputType">Input type:</label>
+        <select id="inputType" onchange="toggleInput()">
+            <option value="text">Text</option>
+            <option value="link">Link</option>
+        </select>
+    </div>
+    <div id="textInput" style="display: block;">
+        <label for="text">Enter text:</label>
+        <textarea id="text" rows="4" cols="50"></textarea>
+    </div>
+    <div id="linkInput" style="display: none;">
+        <label for="link">Enter link:</label>
+        <input type="url" id="link">
+    </div>
+    <script>
+        function toggleInput() {
+            const inputType = document.getElementById("inputType").value;
+            const textInput = document.getElementById("textInput");
+            const linkInput = document.getElementById("linkInput");
+            if (inputType === "text") {
+                textInput.style.display = "block";
+                linkInput.style.display = "none";
+            } else if (inputType === "link") {
+                textInput.style.display = "none";
+                linkInput.style.display = "block";
+            }
+        }
+    </script>
+    <br>
+    <button onclick="countLettersButtonPressed()">Count Letters</button>
+    <br>
+    <div id="result">
+        <div id="letterCountDisplay"></div>
+    <div style="display: flex; justify-content: space-between;">
+        <div>
+            <h3>Counts number of appearances of each letter (in "that": t=2)</h3>
+            <div id="textModeResults"></div>
+        </div>
+        <div>
+            <h3>Counts if letter appears at all (in "that": t=1)</h3>
+            <div id="linkModeResults"></div>
+        </div>
+    </div>
+    </div> 
+  </main>
+</body>
+
+</html>
