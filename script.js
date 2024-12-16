@@ -1,10 +1,10 @@
 function countLetters(text, countMode) {
     // text: a list of strings, words in the text.
-    // Mode 1: Counts number of appearances of each letter (in "that": t=2)
-    // Mode 2: Counts if letter appears at all (in "that": t=1)
-    const alphabet = [...'abcdefghijklmnopqrstuvwxyz'];
+    // Mode 0: Counts number of appearances of each letter (in "that": t=2)
+    // Mode 1: Counts if letter appears at all (in "that": t=1)
+
     let letterCount = {};
-    if (countMode == 1) {
+    if (countMode == 0) {
         for (const word of text) {
             for (const letter of word) {
                 if (letter in letterCount) {
@@ -15,8 +15,9 @@ function countLetters(text, countMode) {
             }
         }      
     } else {
+        const lettersToCheck = new Set(text.join(""));
         for (const word of text) {
-            for (const letter of alphabet) {
+            for (const letter of lettersToCheck) {
                 if (word.includes(letter)) {
                     if (letter in letterCount) {
                         letterCount[letter] += 1;
@@ -30,41 +31,64 @@ function countLetters(text, countMode) {
     return letterCount;
 }
 
-function logLetterCount(text) {
-    const wordArray = text.split(/\s+/);
+function displayLetterCount(letterCountResults, tableID) {
+    // letterCountResults: a dictionary with letters as keys and counts as values
+    // tableID: the ID of the table to display the results
+    
+    letterCountResults = Object.fromEntries( // Sort the dictionary by value
+        Object.entries(letterCountResults).sort(([,a],[,b]) => b-a).reverse()
+    );
 
-    console.log(countLetters(wordArray, 1));
-    console.log(countLetters(wordArray, 2));
-}
-
-function displayLetterCount(text) {
-    const letterCount = countLetters(text, 1);
-    const letterCountDisplay = document.getElementById("letterCountDisplay");
-    letterCountDisplay.innerHTML = "";
-    for (const letter in letterCount) {
-        const letterElement = document.createElement("div");
-        letterElement.innerHTML = `${letter}: ${letterCount[letter]}`;
-        letterCountDisplay.appendChild(letterElement);
+    const table = document.getElementById(tableID);
+    table.innerHTML = "";
+    for (const letter in letterCountResults) {
+        const row = table.insertRow(0);
+        const cell1 = row.insertCell(0);
+        const cell2 = row.insertCell(1);
+        cell1.innerHTML = letter;
+        cell2.innerHTML = letterCountResults[letter];
+    }
+    table.insertRow(0).innerHTML = "<th>Letter</th><th>Count</th>";
+    if (tableID === "table0") {
+        table.insertRow(0).innerHTML = "<th colspan='2'>Number of appearances (in \"that\": t=2)</th>";
+    }
+    else if (tableID === "table1") {
+        table.insertRow(0).innerHTML = "<th colspan='2'>Letter appears in word (in \"that\": t=1)</th>";
     }
 }
 
 function countLettersButtonPressed() {
     const inputType = document.getElementById("inputType").value;
+    let textInput = [];
+
     if (inputType === "text") {
-        const textInput = document.getElementById("text").value;
-        displayLetterCount(textInput);
+        textInput = document.getElementById("text").value;
+        processTextInput(textInput);
     }
     else if (inputType === "link") {
-        try {
-            new URL(document.getElementById("link").value);
+        const linkInput = document.getElementById("link").value;
+        try { // Check if the URL is valid
+            new URL(linkInput);
         } catch (_) {
             console.error("Invalid URL");
             return;
         }
-        const linkInput = document.getElementById("link").value;
         fetch(linkInput)
             .then(response => response.text())
-            .then(text => displayLetterCount(text))
+            .then(text => processTextInput(text))
             .catch(error => console.error(error));
     }
+}
+
+function processTextInput(textInput) {
+    if (!document.getElementById("caseSensitive").checked) {
+        textInput = textInput.toLowerCase();
+    }
+    textInput = textInput.split(/\s+/);
+
+    const letterCountResultsType0 = countLetters(textInput , 0);
+    const letterCountResultsType1 = countLetters(textInput , 1);
+
+    displayLetterCount(letterCountResultsType0, "table0");
+    displayLetterCount(letterCountResultsType1, "table1");
 }

@@ -43,20 +43,21 @@
     </script>
     <br>
     <button onclick="countLettersButtonPressed()">Count Letters</button>
-    <br>
-    <div id="result">
-        <div id="letterCountDisplay"></div>
-    <div style="display: flex; justify-content: space-between;">
-        <div>
-            <h3>Counts number of appearances of each letter (in "that": t=2)</h3>
-            <div id="textModeResults"></div>
-        </div>
-        <div>
-            <h3>Counts if letter appears at all (in "that": t=1)</h3>
-            <div id="linkModeResults"></div>
-        </div>
+    <div>
+        <label for="caseSensitive">Case Sensitive? (seperatly count upper and lower case letters)</label>
+        <input type="checkbox" id="caseSensitive">
     </div>
-    </div> 
+    <br><br>
+    <div class="row">
+        <div class="column">
+          <table id="table0">
+          </table>
+        </div>
+        <div class="column">
+          <table id="table1">
+          </table>
+        </div>
+      </div>
   </main>
 </body>
 

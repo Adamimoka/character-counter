@@ -1,0 +1,1 @@
+The 'words_alpha.txt' file is sourced from GitHub org dwyl. Downloaded from https://github.com/dwyl/english-words.
