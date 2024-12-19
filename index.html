@@ -14,9 +14,10 @@
   <main>
     <div>
         <label for="inputType">Input type:</label>
-        <select id="inputType" onchange="toggleInput()">
+        <select id="inputType" onchange="toggleTextInputType()">
             <option value="text">Text</option>
             <option value="link">Link</option>
+            <option value="file">File</option>
         </select>
     </div>
     <div id="textInput" style="display: block;">
@@ -24,29 +25,25 @@
         <textarea id="text" rows="4" cols="50"></textarea>
     </div>
     <div id="linkInput" style="display: none;">
-        <label for="link">Enter link:</label>
+        <label for="link">Enter link to raw text file:</label>
         <input type="url" id="link">
     </div>
-    <script>
-        function toggleInput() {
-            const inputType = document.getElementById("inputType").value;
-            const textInput = document.getElementById("textInput");
-            const linkInput = document.getElementById("linkInput");
-            if (inputType === "text") {
-                textInput.style.display = "block";
-                linkInput.style.display = "none";
-            } else if (inputType === "link") {
-                textInput.style.display = "none";
-                linkInput.style.display = "block";
-            }
-        }
-    </script>
+    <div id="fileInput" style="display: none;">
+        <label for="file">Upload text file:</label>
+        <input type="file" id="file">
+    </div>
+    <br>
+    <div id="options">
+        <label for="characterMode">Characters to count:</label>
+        <select id="characterMode">
+            <option value="all">All characters</option>
+            <option value="alphanumeric">Alphanumeric</option>
+            <option value="alphabet">Letters only</option>
+            <option value="caseinsensitive">Case insensitive letters</option>
+        </select>
+    </div>
     <br>
     <button onclick="countLettersButtonPressed()">Count Letters</button>
-    <div>
-        <label for="caseSensitive">Case Sensitive? (seperatly count upper and lower case letters)</label>
-        <input type="checkbox" id="caseSensitive">
-    </div>
     <br><br>
     <div class="row">
         <div class="column">

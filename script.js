@@ -1,12 +1,31 @@
-function countLetters(text, countMode) {
-    // text: a list of strings, words in the text.
-    // Mode 0: Counts number of appearances of each letter (in "that": t=2)
-    // Mode 1: Counts if letter appears at all (in "that": t=1)
+function countLetters(text, appearanceMode) {
+    // text: a string of text to count the letters in
+    // Mode 0: Counts Number of appearances (in "that": 't' is 2)
+    // Mode 1: Counts letter appearance per word (in "that": 't' is 1)
+    
+    text = text.split(/\s+/); // Split the text into words
 
     let letterCount = {};
     let letterFraction = {};
 
-    if (countMode == 0) {
+    const characterMode = document.getElementById("characterMode").value;
+    if (characterMode == 'all') { // Count all characters
+        // nothing
+    }
+    else if (characterMode == 'alphanumeric') { // Remove non-alphanumeric characters
+        text = text.map(word => word.replace(/[^a-zA-Z0-9]/g, ""));
+    }
+    else if (characterMode == 'alphabet') { // Remove non-alphabetic characters
+        text = text.map(word => word.replace(/[^a-zA-Z]/g, ""));
+    }
+    else if (characterMode == 'caseinsensitive') { // Remove non-alphabetic characters
+        text = text.map(word => word.replace(/[^a-zA-Z]/g, ""));
+        text = text.map(word => word.toUpperCase());
+    }
+
+    text = text.filter(word => word !== ""); // Remove empty strings
+
+    if (appearanceMode == 0) {
         for (const word of text) {
             for (const letter of word) {
                 if (letter in letterCount) {
@@ -76,8 +95,8 @@ function displayLetterCount(letterResults, tableID) {
         countExplanation = "Number of words that contain the letter"
         percentExplanation = "Percent of all words that contain the letter"
     }
-    const countText = 'Count <div class="tooltip">(??)<span class="tooltiptext">' + countExplanation + '</span></div>'
-    const percentText = 'Percentage <div class="tooltip">(??)<span class="tooltiptext">' + percentExplanation + '</span></div>'
+    const countText = '<div class="tooltip">Count (?)<span class="tooltiptext">' + countExplanation + '</span></div>'
+    const percentText = '<div class="tooltip">Percentage (?)<span class="tooltiptext">' + percentExplanation + '</span></div>'
     table.insertRow(0).innerHTML = "<th>Letter</th><th>" + countText + "</th><th>" + percentText + "</th>";
     if (tableID === "table0") {
         table.insertRow(0).innerHTML = "<th colspan='3'>Number of appearances</th>";
@@ -108,17 +127,43 @@ function countLettersButtonPressed() {
             .then(text => processTextInput(text))
             .catch(error => console.error(error));
     }
+    else if (inputType === "file") {
+        const fileInput = document.getElementById("file").files[0];
+        if (fileInput) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                alert(reader.result);
+                processTextInput(reader.result);
+            }
+            reader.readAsText(fileInput);
+        } else {
+            console.error("No file selected");
+        }
+    }
 }
 
 function processTextInput(textInput) {
-    if (!document.getElementById("caseSensitive").checked) {
-        textInput = textInput.toLowerCase();
-    }
-    textInput = textInput.split(/\s+/);
-
-    const letterCountResults0 = countLetters(textInput , 0);
-    const letterCountResults1 = countLetters(textInput , 1);
+    const letterCountResults0 = countLetters(textInput, 0);
+    const letterCountResults1 = countLetters(textInput, 1);
 
     displayLetterCount(letterCountResults0, "table0");
     displayLetterCount(letterCountResults1, "table1");
+}
+
+function toggleTextInputType() {
+    const inputType = document.getElementById("inputType").value;
+    const textInput = document.getElementById("textInput");
+    const linkInput = document.getElementById("linkInput");
+    const fileInput = document.getElementById("fileInput");
+
+    textInput.style.display = "none";
+    linkInput.style.display = "none";
+    fileInput.style.display = "none";
+    if (inputType === "text") {
+        textInput.style.display = "block";
+    } else if (inputType === "link") {
+        linkInput.style.display = "block";
+    } else if (inputType === "file") {
+        fileInput.style.display = "block";
+    }
 }
