@@ -132,7 +132,6 @@ function countLettersButtonPressed() {
         if (fileInput) {
             const reader = new FileReader();
             reader.onload = function() {
-                alert(reader.result);
                 processTextInput(reader.result);
             }
             reader.readAsText(fileInput);
