@@ -1,14 +1,16 @@
-function countLetters(text, appearanceMode) {
+function countLetters(text, appearanceMode, characterMode, countMode) {
     // text: a string of text to count the letters in
-    // Mode 0: Counts Number of appearances (in "that": 't' is 2)
-    // Mode 1: Counts letter appearance per word (in "that": 't' is 1)
+    // appearanceMode 0: Counts Number of appearances (in "that": 't' is 2)
+    // appearanceMode 1: Counts letter appearance per word (in "that": 't' is 1)
+    // characterMode: controls which characters to count
+    // countMode: controls what to count (letter, bigram, trigram)
     
     text = text.split(/\s+/); // Split the text into words
 
     let letterCount = {};
     let letterFraction = {};
+    let totalLettersOrWords = 0;
 
-    const characterMode = document.getElementById("characterMode").value;
     if (characterMode == 'all') { // Count all characters
         // nothing
     }
@@ -22,39 +24,130 @@ function countLetters(text, appearanceMode) {
         text = text.map(word => word.replace(/[^a-zA-Z]/g, ""));
         text = text.map(word => word.toUpperCase());
     }
-
     text = text.filter(word => word !== ""); // Remove empty strings
 
     if (appearanceMode == 0) {
-        for (const word of text) {
-            for (const letter of word) {
-                if (letter in letterCount) {
-                    letterCount[letter] += 1;
-                } else {
-                    letterCount[letter] = 1;
+        if (countMode == 'letter') {
+            for (const word of text) {
+                for (const letter of word) {
+                    if (letter in letterCount) {
+                        letterCount[letter] += 1;
+                    } else {
+                        letterCount[letter] = 1;
+                    }
+                    totalLettersOrWords++;
                 }
             }
+            for (const letter in letterCount) {
+                letterFraction[letter] = letterCount[letter] / totalLettersOrWords;
+            }
         }
-        const totalLetters = Object.values(letterCount).reduce((a, b) => a + b, 0);
-        for (const letter in letterCount) {
-            letterFraction[letter] = letterCount[letter] / totalLetters;
+        else if (countMode == 'bigram'){
+            for (const word of text) {
+                if (word.length < 2) {
+                    continue;
+                }
+                for (let i = 0; i < word.length - 1; i++) {
+                    const bigram = word[i] + word[i+1];
+                    if (bigram in letterCount) {
+                        letterCount[bigram] += 1;
+                    } else {
+                        letterCount[bigram] = 1;
+                    }
+                    totalLettersOrWords++;
+                }
+            }
+            for (const letter in letterCount) {
+                letterFraction[letter] = letterCount[letter] / totalLettersOrWords;
+            }
+        }
+        else if (countMode == 'trigram'){
+            for (const word of text) {
+                if (word.length < 3) {
+                    continue;
+                }
+                for (let i = 0; i < word.length - 2; i++) {
+                    const trigram = word[i] + word[i+1] + word[i+2];
+                    if (trigram in letterCount) {
+                        letterCount[trigram] += 1;
+                    } else {
+                        letterCount[trigram] = 1;
+                    }
+                    totalLettersOrWords++;
+                }
+            }
+            for (const letter in letterCount) {
+                letterFraction[letter] = letterCount[letter] / totalLettersOrWords;
+            }
         }
     } else {
-        const lettersToCheck = new Set(text.join(""));
-        for (const word of text) {
-            for (const letter of lettersToCheck) {
-                if (word.includes(letter)) {
+        if (countMode == 'letter') {
+            for (const word of text) {
+                let seenLetters = new Set();
+                for (const letter of word) {
+                    if (seenLetters.has(letter)) {
+                        continue;
+                    }
+                    seenLetters.add(letter);
                     if (letter in letterCount) {
                         letterCount[letter] += 1;
                     } else {
                         letterCount[letter] = 1;
                     }
                 }
+                totalLettersOrWords++;
+            }
+            for (const letter in letterCount) {
+                letterFraction[letter] = letterCount[letter] / totalLettersOrWords;
             }
         }
-        const totalWords = text.length;
-        for (const letter in letterCount) {
-            letterFraction[letter] = letterCount[letter] / totalWords;
+        else if (countMode == 'bigram'){
+            for (const word of text) {
+                if (word.length < 2) {
+                    continue;
+                }
+                let seenBigrams = new Set();
+                for (let i = 0; i < word.length - 1; i++) {
+                    const bigram = word[i] + word[i+1];
+                    if (seenBigrams.has(bigram)) {
+                        continue;
+                    }
+                    seenBigrams.add(bigram);
+                    if (bigram in letterCount) {
+                        letterCount[bigram] += 1;
+                    } else {
+                        letterCount[bigram] = 1;
+                    }
+                }
+                totalLettersOrWords++;
+            }
+            for (const letter in letterCount) {
+                letterFraction[letter] = letterCount[letter] / totalLettersOrWords;
+            }
+        }
+        else if (countMode == 'trigram'){
+            for (const word of text) {
+                if (word.length < 3) {
+                    continue;
+                }
+                let seenTrigrams = new Set();
+                for (let i = 0; i < word.length - 2; i++) {
+                    const trigram = word[i] + word[i+1] + word[i+2];
+                    if (seenTrigrams.has(trigram)) {
+                        continue;
+                    }
+                    seenTrigrams.add(trigram);
+                    if (trigram in letterCount) {
+                        letterCount[trigram] += 1;
+                    } else {
+                        letterCount[trigram] = 1;
+                    }
+                }
+                totalLettersOrWords++;
+            }
+            for (const letter in letterCount) {
+                letterFraction[letter] = letterCount[letter] / totalLettersOrWords;
+            }
         }
     }
     return [letterCount, letterFraction];
@@ -82,18 +175,18 @@ function displayLetterCount(letterResults, tableID) {
         const cell3 = row.insertCell(2);
         cell1.innerHTML = letter;
         cell2.innerHTML = letterCountResults[letter];
-        cell3.innerHTML = (letterFractionResults[letter]*100).toFixed(2) + "%";
+        cell3.innerHTML = (letterFractionResults[letter]*100).toPrecision(4) + "%";
     }
 
     let countExplanation = "";
     let percentExplanation = "";
     if (tableID === "table0") {
-        countExplanation = "Number of times the letter appears in the text"
-        percentExplanation = "Percent of all all letters in the text that are this letter"
+        countExplanation = "Number of times the letter is in the text"
+        percentExplanation = "Percent of the text that is this letter"
     }
     else if (tableID === "table1") {
         countExplanation = "Number of words that contain the letter"
-        percentExplanation = "Percent of all words that contain the letter"
+        percentExplanation = "Percent of words that contain the letter"
     }
     const countText = '<div class="tooltip">Count (?)<span class="tooltiptext">' + countExplanation + '</span></div>'
     const percentText = '<div class="tooltip">Percentage (?)<span class="tooltiptext">' + percentExplanation + '</span></div>'
@@ -142,8 +235,12 @@ function countLettersButtonPressed() {
 }
 
 function processTextInput(textInput) {
-    const letterCountResults0 = countLetters(textInput, 0);
-    const letterCountResults1 = countLetters(textInput, 1);
+    
+    const characterMode = document.getElementById("characterMode").value;
+    const countMode = document.getElementById("countMode").value;
+
+    const letterCountResults0 = countLetters(textInput, 0, characterMode, countMode);
+    const letterCountResults1 = countLetters(textInput, 1, characterMode, countMode);
 
     displayLetterCount(letterCountResults0, "table0");
     displayLetterCount(letterCountResults1, "table1");

@@ -7,7 +7,7 @@
   <title>Letter Frequencies</title>
   <link rel="stylesheet" href="style.css" />
   <script src="script.js"></script>
-  <link rel="icon" type="image/png" href="favicon.ico">
+  <link rel="icon" type="image/png" href="favicon.png">
 </head>
 
 <body>
@@ -41,6 +41,12 @@
             <option value="alphabet">Letters only</option>
             <option value="caseinsensitive">Case insensitive letters</option>
         </select>
+        <select id="countMode">
+          <option value="letter">Letters</option>
+          <option value="bigram">Bigrams</option>
+          <option value="trigram">Trigrams</option>
+      </select>
+      
     </div>
     <br>
     <button onclick="countLettersButtonPressed()">Count Letters</button>
