@@ -1,1 +1,3 @@
 The 'words_alpha.txt' file is sourced from GitHub org dwyl. Downloaded from https://github.com/dwyl/english-words.
+The 'common_words.txt' file is sourced from Wikipedia. Downloaded from https://en.wikipedia.org/wiki/Wikipedia:Language_learning_centre/5000_most_common_words.
+The 'the_raven.txt' file is sourced from Project Gutenberg. Downloaded from https://www.gutenberg.org/ebooks/1065.
