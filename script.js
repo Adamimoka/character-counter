@@ -233,6 +233,28 @@ function countLettersButtonPressed() {
             console.error("No file selected");
         }
     }
+    else if (inputType === "sample") {
+        let linkInput = '';
+        if (document.getElementById("sample1").checked) {
+            linkInput = "https://raw.githubusercontent.com/Adamimoka/letter-frequencies/refs/heads/main/sample_files/words_alpha.txt"
+        }
+        else if (document.getElementById("sample2").checked) {
+            linkInput = "https://raw.githubusercontent.com/Adamimoka/letter-frequencies/refs/heads/main/sample_files/common_words.txt"
+        }
+        else if (document.getElementById("sample3").checked) {
+            linkInput = "https://raw.githubusercontent.com/Adamimoka/letter-frequencies/refs/heads/main/sample_files/the_raven.txt"
+        }
+        else {
+            console.error("No sample selected");
+            return;
+        }
+
+        fetch(linkInput)
+            .then(response => response.text())
+            .then(text => processTextInput(text))
+            .catch(error => console.error(error));
+
+    }
 }
 
 function processTextInput(textInput) {
@@ -252,15 +274,19 @@ function toggleTextInputType() {
     const textInput = document.getElementById("textInput");
     const linkInput = document.getElementById("linkInput");
     const fileInput = document.getElementById("fileInput");
+    const sampleInput = document.getElementById("sampleInput");
 
     textInput.style.display = "none";
     linkInput.style.display = "none";
     fileInput.style.display = "none";
+    sampleInput.style.display = "none";
     if (inputType === "text") {
         textInput.style.display = "block";
     } else if (inputType === "link") {
         linkInput.style.display = "block";
     } else if (inputType === "file") {
         fileInput.style.display = "block";
+    } else if (inputType === "sample") {
+        sampleInput.style.display = "block";
     }
 }

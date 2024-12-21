@@ -18,6 +18,7 @@
             <option value="text">Text</option>
             <option value="link">Link</option>
             <option value="file">File</option>
+            <option value="sample">Sample</option>
         </select>
     </div>
     <div id="textInput" style="display: block;">
@@ -32,6 +33,15 @@
         <label for="file">Upload text file:</label>
         <input type="file" id="file">
     </div>
+    <div id="sampleInput" style="display: none;">
+      <p>Select sample file:</p>
+      <input type="radio" id="sample1" name="samplefile">
+      <label for="sample1">Word List (over 370,000 words) <a href="https://raw.githubusercontent.com/Adamimoka/letter-frequencies/refs/heads/main/sample_files/words_alpha.txt" target="_blank">(Raw File)</a> - <a href="https://github.com/dwyl/english-words" target="_blank">(Source)</a> <link\></label><br>
+      <input type="radio" id="sample2" name="samplefile">
+      <label for="sample2">Common Words List (1100 words) <a href="https://raw.githubusercontent.com/Adamimoka/letter-frequencies/refs/heads/main/sample_files/common_words.txt" target="_blank">(Raw File)</a> - <a href="https://en.wikipedia.org/wiki/Wikipedia:Language_learning_centre/5000_most_common_words" target="_blank">(Source)</a></label><br>
+      <input type="radio" id="sample3" name="samplefile">
+      <label for="sample3">The Raven by Edgar Allan Poe <a href="https://raw.githubusercontent.com/Adamimoka/letter-frequencies/refs/heads/main/sample_files/the_raven.txt" target="_blank">(Raw File)</a> - <a href="https://www.gutenberg.org/ebooks/1065" target="_blank">(Source)</a></label><br>
+    </div>
     <br>
     <div id="options">
         <label for="characterMode">Characters to count:</label>
@@ -39,7 +49,7 @@
             <option value="all">All characters</option>
             <option value="alphanumeric">Alphanumeric</option>
             <option value="alphabet">Letters only</option>
-            <option value="caseinsensitive">Case insensitive letters</option>
+            <option value="caseinsensitive" selected>Case insensitive letters</option>
         </select>
         <br>
         <label for="countMode">Count mode:</label>
@@ -48,7 +58,6 @@
           <option value="bigram">Bigrams</option>
           <option value="trigram">Trigrams</option>
       </select>
-      
     </div>
     <br>
     <button onclick="countLettersButtonPressed()">Press to Count Letters</button>
