@@ -220,8 +220,10 @@ function countLettersButtonPressed() {
         fetch(linkInput)
             .then(response => response.text())
             .then(text => processTextInput(text))
-            .catch(error => console.error(error));
-    }
+            .catch(error => {
+                console.error(error);
+                alert("ERROR: " + error.message);});
+        }
     else if (inputType === "file") {
         const fileInput = document.getElementById("file").files[0];
         if (fileInput) {
@@ -256,8 +258,9 @@ function countLettersButtonPressed() {
         fetch(linkInput)
             .then(response => response.text())
             .then(text => processTextInput(text))
-            .catch(error => console.error(error));
-
+            .catch(error => {
+                console.error(error);
+                alert("ERROR: " + error.message);});
     }
 }
 
