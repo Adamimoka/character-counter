@@ -213,7 +213,8 @@ function countLettersButtonPressed() {
         try { // Check if the URL is valid
             new URL(linkInput);
         } catch (_) {
-            console.error("Invalid URL");
+            console.warn("Invalid URL");
+            alert("ERROR: Invalid URL");
             return;
         }
         fetch(linkInput)
@@ -230,7 +231,9 @@ function countLettersButtonPressed() {
             }
             reader.readAsText(fileInput);
         } else {
-            console.error("No file selected");
+            console.warn("No file selected");
+            alert("ERROR: No file selected");
+            return
         }
     }
     else if (inputType === "sample") {
@@ -245,7 +248,8 @@ function countLettersButtonPressed() {
             linkInput = "https://raw.githubusercontent.com/Adamimoka/letter-frequencies/refs/heads/main/sample_files/the_raven.txt"
         }
         else {
-            console.error("No sample selected");
+            console.warn("No sample selected");
+            alert("ERROR: No sample selected");
             return;
         }
 
