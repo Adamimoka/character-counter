@@ -183,14 +183,14 @@ function displayLetterCount(letterResults, tableID) {
     const letterName = document.getElementById("countMode").value;
     if (tableID === "table0") {
         countExplanation = `Number of times the ${letterName} is in the text`
-        percentExplanation = `Percent of the text that is this ${letterName}`
+        percentExplanation = `Percent of ${letterName}s that are this ${letterName}`
     }
     else if (tableID === "table1") {
         countExplanation = `Number of words that contain the ${letterName}`
         percentExplanation = `Percent of words that contain the ${letterName}`
     }
-    const countText = '<div class="tooltip">Count (?)<span class="tooltiptext">' + countExplanation + '</span></div>'
-    const percentText = '<div class="tooltip">Percentage (?)<span class="tooltiptext">' + percentExplanation + '</span></div>'
+    const countText = '<div class="tooltip">Count<span class="tooltiptext">' + countExplanation + '</span></div>'
+    const percentText = '<div class="tooltip">Percentage<span class="tooltiptext">' + percentExplanation + '</span></div>'
     table.insertRow(0).innerHTML = `<th>${letterName[0].toUpperCase() + letterName.substring(1)}</th><th>` + countText + "</th><th>" + percentText + "</th>";
     if (tableID === "table0") {
         table.insertRow(0).innerHTML = "<th colspan='3'>Number of appearances</th>";
