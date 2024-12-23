@@ -104,6 +104,7 @@ function countLetters(text, appearanceMode, characterMode, countMode) {
         else if (countMode == 'bigram'){
             for (const word of text) {
                 if (word.length < 2) {
+                    totalLettersOrWords++;
                     continue;
                 }
                 let seenBigrams = new Set();
@@ -128,6 +129,7 @@ function countLetters(text, appearanceMode, characterMode, countMode) {
         else if (countMode == 'trigram'){
             for (const word of text) {
                 if (word.length < 3) {
+                    totalLettersOrWords++;
                     continue;
                 }
                 let seenTrigrams = new Set();
