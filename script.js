@@ -243,13 +243,13 @@ function countLettersButtonPressed() {
     else if (inputType === "sample") {
         let linkInput = '';
         if (document.getElementById("sample1").checked) {
-            linkInput = "https://raw.githubusercontent.com/Adamimoka/letter-frequencies/refs/heads/main/sample_files/words_alpha.txt"
+            linkInput = "https://raw.githubusercontent.com/Adamimoka/letter-frequencies/refs/heads/main/samples/words_alpha.txt"
         }
         else if (document.getElementById("sample2").checked) {
-            linkInput = "https://raw.githubusercontent.com/Adamimoka/letter-frequencies/refs/heads/main/sample_files/common_words.txt"
+            linkInput = "https://raw.githubusercontent.com/Adamimoka/letter-frequencies/refs/heads/main/samples/common_words.txt"
         }
         else if (document.getElementById("sample3").checked) {
-            linkInput = "https://raw.githubusercontent.com/Adamimoka/letter-frequencies/refs/heads/main/sample_files/the_raven.txt"
+            linkInput = "https://raw.githubusercontent.com/Adamimoka/letter-frequencies/refs/heads/main/samples/the_raven.txt"
         }
         else {
             console.warn("No sample selected");
