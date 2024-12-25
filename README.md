@@ -8,7 +8,7 @@ This is a tool that allows you to generate frequency tables of letters (or other
 
 You can access the online demo and see the tool in action at [adamimoka.github.io/letter-frequencies](https://adamimoka.github.io/letter-frequencies/).
 ### Options
-#### Input Type
+#### Input type
 * **Text**: Type text into the textbox
 * **Link**: Input link to a raw file
 * **File**: Select a local file 
