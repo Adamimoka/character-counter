@@ -8,7 +8,11 @@ This is a tool that allows you to generate frequency tables of letters (or other
 
 You can access the online demo and see the tool in action at [adamimoka.github.io/letter-frequencies](https://adamimoka.github.io/letter-frequencies/).
 ### Options
-#### Input type
+The tool offers a variety of options to customize your analysis.
+\
+Below is a detailed description of each option:
+
+#### Input Type
 * **Text**: Type text into the textbox
 * **Link**: Input link to a raw file
 * **File**: Select a local file 
@@ -16,8 +20,8 @@ You can access the online demo and see the tool in action at [adamimoka.github.i
 #### Characters to count
 * **All characters**: Counts all non-whitespace characters
 * **Alphanumeric**: Only counts letters and numbers, no punctuation or other symbols
-* **Case sensitive letters**: Counts letters (counts uppercase and lowercase seperatly)
-* **Case insensitive letters**: Counts letters (counts uppercase and lowercase the same)
+* **Case sensitive letters**: Counts letters, while counting uppercase and lowercase seperatly
+* **Case insensitive letters**: Counts letters, while counting uppercase and lowercase the same
 #### Count mode
 * **Letters**: Counts single letters
 * **Bigrams**: Counts bigrams (pairs of two consecutive letters)
