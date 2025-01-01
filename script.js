@@ -3,7 +3,7 @@ function countLetters(text, appearanceMode, characterMode, countMode) {
     // appearanceMode 0: Counts Number of appearances (in "that": 't' is 2)
     // appearanceMode 1: Counts letter appearance per word (in "that": 't' is 1)
     // characterMode: controls which characters to count
-    // countMode: controls what to count (letter, bigram, trigram)
+    // countMode: controls what to count (letter, bigram, trigram, word)
     
     text = text.split(/\s+/); // Split the text into words
 
@@ -75,6 +75,19 @@ function countLetters(text, appearanceMode, characterMode, countMode) {
                     }
                     totalLettersOrWords++;
                 }
+            }
+            for (const letter in letterCount) {
+                letterFraction[letter] = letterCount[letter] / totalLettersOrWords;
+            }
+        }
+        if (countMode == 'word') {
+            for (const word of text) {
+                if (word in letterCount) {
+                    letterCount[word] += 1;
+                } else {
+                    letterCount[word] = 1;
+                }
+                totalLettersOrWords++;
             }
             for (const letter in letterCount) {
                 letterFraction[letter] = letterCount[letter] / totalLettersOrWords;
