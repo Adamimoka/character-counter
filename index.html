@@ -17,8 +17,8 @@
       You can read about how all the options work <a href="https://github.com/Adamimoka/letter-frequencies/blob/main/README.md#options" target="_blank">here</a>.</p>
     <div>
         <label for="inputType">Input type:</label>
-        <select id="inputType" onchange="toggleTextInputType()">
-            <option value="text">Text</option>
+        <select id="inputType" onchange="toggleTextInputType()" autocomplete="off">
+            <option value="text" selected>Text</option>
             <option value="link">Link</option>
             <option value="file">File</option>
             <option value="sample">Sample</option>
@@ -60,7 +60,7 @@
           <option value="letter">Letters</option>
           <option value="bigram">Bigrams</option>
           <option value="trigram">Trigrams</option>
-          <option value="word">Word (Work In Progress)</option>
+          <option value="word">Word (Doesn't work with very large text files)</option>
       </select>
     </div>
     <br>

@@ -165,6 +165,11 @@ function countLetters(text, appearanceMode, characterMode, countMode) {
             }
         }
     }
+    const rowCount = Object.keys(letterCount).length
+    if (appearanceMode == 0 && rowCount > 25000) {
+        const msg = `Warning: The table will be very large (${rowCount} rows) and may take a long time to process.\nThe page may become unresponsive or crash.\n\nPress OK to continue.`
+        alert(msg);
+    }
     return [letterCount, letterFraction];
 }
 
@@ -175,23 +180,21 @@ function displayLetterCount(letterResults, tableID) {
     let letterFractionResults = letterResults[1];
 
     letterCountResults = Object.fromEntries( // Sort the dictionaries by value
-        Object.entries(letterCountResults).sort(([,a],[,b]) => b-a).reverse()
+        Object.entries(letterCountResults).sort(([,a],[,b]) => b-a)
     );
     letterFractionResults = Object.fromEntries(
-        Object.entries(letterFractionResults).sort(([,a],[,b]) => b-a).reverse()
+        Object.entries(letterFractionResults).sort(([,a],[,b]) => b-a)
     );
 
     const table = document.getElementById(tableID);
     table.innerHTML = "";
+    const fragment = document.createDocumentFragment();
     for (const letter in letterCountResults) {
-        const row = table.insertRow(0);
-        const cell1 = row.insertCell(0);
-        const cell2 = row.insertCell(1);
-        const cell3 = row.insertCell(2);
-        cell1.innerHTML = letter;
-        cell2.innerHTML = letterCountResults[letter];
-        cell3.innerHTML = (letterFractionResults[letter]*100).toPrecision(4) + "%";
+        const row = document.createElement("tr");
+        row.innerHTML = `<td>${letter}</td><td>${letterCountResults[letter]}</td><td>${(letterFractionResults[letter] * 100).toPrecision(4)}%</td>`;
+        fragment.appendChild(row);
     }
+    table.appendChild(fragment);
 
     let countExplanation = "";
     let percentExplanation = "";
