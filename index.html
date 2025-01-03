@@ -49,10 +49,10 @@
     <div id="options">
         <label for="characterMode">Characters to count:</label>
         <select id="characterMode">
-            <option value="all">All characters</option>
-            <option value="alphanumeric">Alphanumeric</option>
-            <option value="alphabet">Case sensitive letters</option>
-            <option value="caseinsensitive" selected>Case insensitive letters</option>
+          <option value="all">All characters</option>
+          <option value="alphanumeric">Alphanumeric</option>
+          <option value="alphabet">Case sensitive letters</option>
+          <option value="caseinsensitive" selected>Case insensitive letters</option>
         </select>
         <br>
         <label for="countMode">Count mode:</label>
@@ -60,8 +60,19 @@
           <option value="letter">Letters</option>
           <option value="bigram">Bigrams</option>
           <option value="trigram">Trigrams</option>
-          <option value="word">Word (Doesn't work with very large text files)</option>
-      </select>
+          <option value="word">Word</option>
+        </select>
+        <br>
+        <label for="sortMode">Sort mode:</label>
+        <select id="sortMode">
+          <option value="frquency">Frequency</option>
+          <option value="alphabetical">Alphabetical</option>
+          <option value="appearance">Appearance</option>
+        </select>
+        <br>
+        <label for="reversedMode">Reverse Sort: </label>
+        <input type="checkbox" id="reversedMode">
+        
     </div>
     <br>
     <button onclick="countLettersButtonPressed()">Press to Count Letters</button>

@@ -1,9 +1,10 @@
-function countLetters(text, appearanceMode, characterMode, countMode) {
+function countLetters(text, appearanceMode) {
     // text: a string of text to count the letters in
     // appearanceMode 0: Counts Number of appearances (in "that": 't' is 2)
     // appearanceMode 1: Counts letter appearance per word (in "that": 't' is 1)
-    // characterMode: controls which characters to count
-    // countMode: controls what to count (letter, bigram, trigram, word)
+    
+    const characterMode = document.getElementById("characterMode").value;
+    const countMode = document.getElementById("countMode").value;
     
     text = text.split(/\s+/); // Split the text into words
 
@@ -166,8 +167,8 @@ function countLetters(text, appearanceMode, characterMode, countMode) {
         }
     }
     const rowCount = Object.keys(letterCount).length
-    if (appearanceMode == 0 && rowCount > 25000) {
-        const msg = `Warning: The table will be very large (${rowCount} rows) and may take a long time to process.\nThe page may become unresponsive or crash.\n\nPress OK to continue.`
+    if (appearanceMode == 0 && rowCount > 10000) {
+        const msg = `Warning: The table will be very large (it will have ${rowCount} rows) and may take a long time to process.\nThe page may become unresponsive or crash.\n\nPress OK to continue.`
         alert(msg);
     }
     return [letterCount, letterFraction];
@@ -179,12 +180,33 @@ function displayLetterCount(letterResults, tableID) {
     let letterCountResults = letterResults[0];
     let letterFractionResults = letterResults[1];
 
-    letterCountResults = Object.fromEntries( // Sort the dictionaries by value
-        Object.entries(letterCountResults).sort(([,a],[,b]) => b-a)
-    );
-    letterFractionResults = Object.fromEntries(
-        Object.entries(letterFractionResults).sort(([,a],[,b]) => b-a)
-    );
+    const sortMode = document.getElementById("sortMode").value;
+    const reversedMode = document.getElementById("reversedMode").checked;
+
+    if (sortMode === "frquency") {
+        letterCountResults = Object.fromEntries( // Sort the dictionaries by value
+            Object.entries(letterCountResults).sort(([,a],[,b]) => b-a)
+        );
+        letterFractionResults = Object.fromEntries(
+            Object.entries(letterFractionResults).sort(([,a],[,b]) => b-a)
+        );
+    }
+    else if (sortMode === "alphabetical") {
+        letterCountResults = Object.fromEntries(
+            Object.entries(letterCountResults).sort(([a],[b]) => a.localeCompare(b))
+        );
+        letterFractionResults = Object.fromEntries(
+            Object.entries(letterFractionResults).sort(([a],[b]) => a.localeCompare(b))
+        );
+    }
+    else if (sortMode === "appearance") {
+        // nothing (already sorted by appearance)
+    }
+
+    if (reversedMode) {
+        letterCountResults = Object.fromEntries(Object.entries(letterCountResults).reverse());
+        letterFractionResults = Object.fromEntries(Object.entries(letterFractionResults).reverse());
+    }
 
     const table = document.getElementById(tableID);
     table.innerHTML = "";
@@ -283,13 +305,10 @@ function countLettersButtonPressed() {
 }
 
 function processTextInput(textInput) {
+
+    const letterCountResults0 = countLetters(textInput, 0);
+    const letterCountResults1 = countLetters(textInput, 1);
     
-    const characterMode = document.getElementById("characterMode").value;
-    const countMode = document.getElementById("countMode").value;
-
-    const letterCountResults0 = countLetters(textInput, 0, characterMode, countMode);
-    const letterCountResults1 = countLetters(textInput, 1, characterMode, countMode);
-
     displayLetterCount(letterCountResults0, "table0");
     displayLetterCount(letterCountResults1, "table1");
 }
