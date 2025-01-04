@@ -181,9 +181,8 @@ function displayLetterCount(letterResults, tableID) {
     let letterFractionResults = letterResults[1];
 
     const sortMode = document.getElementById("sortMode").value;
-    const reversedMode = document.getElementById("reversedMode").checked;
 
-    if (sortMode === "frquency") {
+    if (sortMode === "frquency" || sortMode === "frquency reversed") {
         letterCountResults = Object.fromEntries( // Sort the dictionaries by value
             Object.entries(letterCountResults).sort(([,a],[,b]) => b-a)
         );
@@ -191,7 +190,7 @@ function displayLetterCount(letterResults, tableID) {
             Object.entries(letterFractionResults).sort(([,a],[,b]) => b-a)
         );
     }
-    else if (sortMode === "alphabetical") {
+    else if (sortMode === "alphabetical" || sortMode === "alphabetical reversed") {
         letterCountResults = Object.fromEntries(
             Object.entries(letterCountResults).sort(([a],[b]) => a.localeCompare(b))
         );
@@ -199,11 +198,11 @@ function displayLetterCount(letterResults, tableID) {
             Object.entries(letterFractionResults).sort(([a],[b]) => a.localeCompare(b))
         );
     }
-    else if (sortMode === "appearance") {
+    else if (sortMode === "appearance" || sortMode === "appearance reversed") {
         // nothing (already sorted by appearance)
     }
 
-    if (reversedMode) {
+    if (sortMode === "frquency reversed" || sortMode === "alphabetical reversed" || sortMode === "appearance reversed") {
         letterCountResults = Object.fromEntries(Object.entries(letterCountResults).reverse());
         letterFractionResults = Object.fromEntries(Object.entries(letterFractionResults).reverse());
     }
