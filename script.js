@@ -21,7 +21,7 @@ function countLetters(text, appearanceMode) {
     }
     else if (characterMode == 'caseinsensitive') { // Remove non-alphabetic characters
         text = text.toLowerCase();
-        text = text.replace(/[^a-z]/g, "");
+        text = text.replace(/[^a-z]/g, " ");
     }
     text = text.split(/\s+/); // Split the text into words
     text = text.filter(word => word !== ""); // Remove empty strings
@@ -199,6 +199,14 @@ function displayLetterCount(letterResults, tableID) {
     }
     else if (sortMode === "appearance" || sortMode === "appearance reversed") {
         // nothing (already sorted by appearance)
+    }
+    else if (sortMode === "random") {
+        letterCountResults = Object.fromEntries(
+            Object.entries(letterCountResults).sort(() => Math.random() - 0.5)
+        );
+        letterFractionResults = Object.fromEntries(
+            Object.entries(letterFractionResults).sort(() => Math.random() - 0.5)
+        );
     }
 
     if (sortMode === "frquency reversed" || sortMode === "alphabetical reversed" || sortMode === "appearance reversed") {
