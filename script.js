@@ -227,6 +227,20 @@ function displayLetterCount(letterResults, tableID) {
     let countExplanation = "";
     let percentExplanation = "";
     const letterName = document.getElementById("countMode").value;
+
+    if (letterName === 'word') {
+        const column0 = document.getElementById("column0");
+        const column1 = document.getElementById("column1");
+        column0.style = "width: 100%;";
+        column1.style.display = "none";
+    }
+    else {
+        const column0 = document.getElementById("column0");
+        const column1 = document.getElementById("column1");
+        column0.style = "width: 50%;";
+        column1.style.display = "";
+    }
+
     if (tableID === "table0") {
         countExplanation = `Number of times the ${letterName} is in the text`
         percentExplanation = `Percent of ${letterName}s that are this ${letterName}`
@@ -248,11 +262,23 @@ function displayLetterCount(letterResults, tableID) {
 
 function countLettersButtonPressed() {
     const inputType = document.getElementById("inputType").value;
-    const textInput = [];
 
     if (inputType === "text") {
-        textInput = document.getElementById("text").value;
-        processTextInput(textInput);
+        processTextInput(document.getElementById("text").value);
+    }
+    else if (inputType === "file") {
+        const fileInput = document.getElementById("file").files[0];
+        if (fileInput) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                processTextInput(reader.result);
+            }
+            reader.readAsText(fileInput);
+        } else {
+            console.warn("No file selected");
+            alert("ERROR: No file selected");
+            return
+        }
     }
     else if (inputType === "link") {
         const linkInput = document.getElementById("link").value;
@@ -269,20 +295,6 @@ function countLettersButtonPressed() {
             .catch(error => {
                 console.error(error);
                 alert("ERROR: " + error.message);});
-        }
-    else if (inputType === "file") {
-        const fileInput = document.getElementById("file").files[0];
-        if (fileInput) {
-            const reader = new FileReader();
-            reader.onload = function() {
-                processTextInput(reader.result);
-            }
-            reader.readAsText(fileInput);
-        } else {
-            console.warn("No file selected");
-            alert("ERROR: No file selected");
-            return
-        }
     }
     else if (inputType === "sample") {
         let linkInput = '';
@@ -311,6 +323,12 @@ function countLettersButtonPressed() {
 }
 
 function processTextInput(textInput) {
+
+    if (textInput.length === 0) {
+        console.warn("No characters to count");
+        alert("ERROR: No characters to count");
+        return;
+    }
 
     const letterCountResults0 = countLetters(textInput, 0);
     const letterCountResults1 = countLetters(textInput, 1);
