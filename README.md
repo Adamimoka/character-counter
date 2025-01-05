@@ -2,7 +2,7 @@
 
 ## What is this?
 
-This is a tool that allows you to generate frequency tables of letters (or other substrings) from some bit of text.
+This is a tool that allows you to generate frequency tables of letters or other substrings from some text.
 
 ## How to Use
 
@@ -27,7 +27,7 @@ Below is a description of each option:
 * **Bigrams**: Counts bigrams (pairs of two consecutive letters)
 * **Trigrams**: Counts trigrams (tripelets of three consecutive letters)
 ### Sort mode - How the result table is sorted
-* **Frequency**: Sorted by most frequent strings first
-* **Alphabetical**: Sorted by alphabetical order of strings
-* **Appearance**: Sorted in the order that the strings appear in the text
-* **Reverse Sort**: Whether or not the results are reversed
+* **Alphabetical (A->Z) / (Z->A)**: Sorted alphabetically in forward or reverse order
+* **Frequency (Most->Least Frequent) / (Least->Most Frequent)**: Sorted by frequency in descending or ascending order
+* **Appearance (First->Last) / (Last->First)**: Sorted by order in which the strings appear in the text forwards or backwards
+* **Random 🎲**: Sorted randomly, re-randomizes each time the button is pressed
