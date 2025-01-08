@@ -14,7 +14,7 @@
   <main>
     <h1>Letter Counter</h1>
     <p>This tool allows you to generate frequency tables of letters from some bit of text. <br>
-      You can read about how all the options work <a href="https://github.com/Adamimoka/letter-frequencies/blob/main/README.md#options" target="_blank">here</a>.</p>
+      You can read about how all the options work <a href="https://github.com/Adamimoka/letter-frequencies#options" target="_blank">here</a>.</p><br>
     <div>
         <label for="inputType">Input type:</label>
         <select id="inputType" onchange="toggleTextInputType()" autocomplete="off">
@@ -24,28 +24,30 @@
             <option value="sample">Sample</option>
         </select>
     </div>
-    <div id="textInput" style="display: block;">
-        <label for="text">Enter text:</label>
-        <textarea id="text" rows="4" cols="50"></textarea>
+    <div id="textInput" style="display: inline-block;">
+        <label for="text">Enter text:</label><br>
+        <textarea id="text" placeholder="Enter text here..." rows="4" cols="50"></textarea>
     </div>
     <div id="fileInput" style="display: none;">
-        <label for="file">Upload text file:</label>
+        <label for="file">Upload text file:</label><br>
         <input type="file" id="file" accept="text/plain">
     </div>
     <div id="linkInput" style="display: none;">
-        <label for="link">Enter link to raw text file:</label>
-        <input type="url" id="link">
+        <label for="link">Enter link to raw text file:</label><br>
+        <input type="url" id="link" placeholder="https://example.com/text.txt" size="30">
     </div>
     <div id="sampleInput" style="display: none;">
       <p>Select sample file:</p>
+      <div>
       <input type="radio" id="sample1" name="samplefile">
       <label for="sample1">Word List (over 370,000 words) <a href="https://raw.githubusercontent.com/Adamimoka/letter-frequencies/refs/heads/main/samples/words_alpha.txt" target="_blank">(Raw File)</a> - <a href="https://github.com/dwyl/english-words" target="_blank">(Source)</a> <link\></label><br>
       <input type="radio" id="sample2" name="samplefile">
       <label for="sample2">Common Word List (1,100 words) <a href="https://raw.githubusercontent.com/Adamimoka/letter-frequencies/refs/heads/main/samples/common_words.txt" target="_blank">(Raw File)</a> - <a href="https://en.wikipedia.org/wiki/Wikipedia:Language_learning_centre/5000_most_common_words" target="_blank">(Source)</a></label><br>
       <input type="radio" id="sample3" name="samplefile">
       <label for="sample3">The Raven by Edgar Allan Poe <a href="https://raw.githubusercontent.com/Adamimoka/letter-frequencies/refs/heads/main/samples/the_raven.txt" target="_blank">(Raw File)</a> - <a href="https://www.gutenberg.org/ebooks/1065" target="_blank">(Source)</a></label><br>
+      </div>
     </div>
-    <br>
+    <br><br>
     <div id="options">
         <label for="characterMode">Characters to count:</label>
         <select id="characterMode">
@@ -60,7 +62,7 @@
           <option value="letter">Letters</option>
           <option value="bigram">Bigrams</option>
           <option value="trigram">Trigrams</option>
-          <option value="word">Word</option>
+          <option value="word">Words</option>
         </select>
         <br>
         <label for="sortMode">Sort mode:</label>

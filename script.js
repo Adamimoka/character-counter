@@ -349,12 +349,12 @@ function toggleTextInputType() {
     fileInput.style.display = "none";
     sampleInput.style.display = "none";
     if (inputType === "text") {
-        textInput.style.display = "block";
+        textInput.style.display = "inline-block";
     } else if (inputType === "link") {
-        linkInput.style.display = "block";
+        linkInput.style.display = "inline-block";
     } else if (inputType === "file") {
-        fileInput.style.display = "block";
+        fileInput.style.display = "inline-block";
     } else if (inputType === "sample") {
-        sampleInput.style.display = "block";
+        sampleInput.style.display = "inline-block";
     }
 }
