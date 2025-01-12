@@ -167,8 +167,7 @@ function countLetters(text, appearanceMode) {
     }
     const rowCount = Object.keys(letterCount).length
     if (appearanceMode == 0 && rowCount > 10000) {
-        const msg = `Warning: The table will be very large (it will have ${rowCount} rows) and may take a long time to process.\nThe page may become unresponsive or crash.\n\nPress OK to continue.`
-        alert(msg);
+        alert(`Warning:\nThe table will be very large (${rowCount} rows) and may take a long time to process.\nThe page may become unresponsive or crash.\n\nPress OK to continue.`);
     }
     return [letterCount, letterFraction];
 }
