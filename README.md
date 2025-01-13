@@ -1,4 +1,4 @@
-# Letter Frequencies
+# Character Counter
 
 ## What is this?
 
