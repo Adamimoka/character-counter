@@ -6,7 +6,7 @@ This is a tool that allows you to generate frequency tables of letters or other 
 
 ## How to Use
 
-You can access the online demo and see the tool in action at [adamimoka.github.io/letter-frequencies](https://adamimoka.github.io/letter-frequencies/).
+You can access the online demo and see the tool in action at [adamimoka.github.io/character-counter](https://adamimoka.github.io/character-counter/).
 ## Options
 The tool offers a variety of options in generating the frequency table.
 \
