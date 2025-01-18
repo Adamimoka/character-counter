@@ -179,8 +179,8 @@ function displayLetterCount(letterResults, tableID) {
     let letterFractionResults = letterResults[1];
 
     const sortMode = document.getElementById("sortMode").value;
-
-    if (sortMode === "frquency" || sortMode === "frquency reversed") {
+    console.log(letterCountResults);
+    if (sortMode === "frequency" || sortMode === "frequency reversed") {
         letterCountResults = Object.fromEntries( // Sort the dictionaries by value
             Object.entries(letterCountResults).sort(([,a],[,b]) => b-a)
         );
@@ -208,7 +208,7 @@ function displayLetterCount(letterResults, tableID) {
         );
     }
 
-    if (sortMode === "frquency reversed" || sortMode === "alphabetical reversed" || sortMode === "appearance reversed") {
+    if (sortMode === "frequency reversed" || sortMode === "alphabetical reversed" || sortMode === "appearance reversed") {
         letterCountResults = Object.fromEntries(Object.entries(letterCountResults).reverse());
         letterFractionResults = Object.fromEntries(Object.entries(letterFractionResults).reverse());
     }
